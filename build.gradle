@@ -21,12 +21,12 @@ description = 'A magic plugin for Bukkit'
 repositories {
     mavenLocal()
     mavenCentral()
+    maven { url "https://hub.spigotmc.org/nexus/content/repositories/snapshots/" }
 }
 
 // In this section you declare the dependencies for your production and test code
 dependencies {
     compile group: 'org.bukkit', name: 'bukkit', version: '1.11.2-R0.1-SNAPSHOT'
-    compile group: 'org.bukkit', name: 'craftbukkit', version: '1.11.2-R0.1-SNAPSHOT'
 }
 
 processResources {
