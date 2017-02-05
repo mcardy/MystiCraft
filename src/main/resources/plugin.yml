@@ -4,5 +4,5 @@ description: MystiCraft is an all-in-one magic plugin providing magic spells and
 
 author: minnymin3
 
-main: com.mcardy.mage.MystiCraft
+main: com.mcardy.mystic.MystiCraft
 load: STARTUP
