@@ -1,0 +1,40 @@
+import org.apache.tools.ant.filters.ReplaceTokens
+
+plugins {
+    id 'ninja.miserable.blossom' version '1.0.1'
+}
+
+apply plugin: 'java'
+apply plugin: 'eclipse'
+
+eclipse {
+    classpath {
+        downloadJavadoc = true
+        downloadSources = true
+    }
+}
+
+group = 'com.mcardy' // TODO
+version = '0.0.1'
+description = 'A magic plugin for Bukkit'
+
+repositories {
+    mavenLocal()
+    mavenCentral()
+}
+
+// In this section you declare the dependencies for your production and test code
+dependencies {
+    compile group: 'org.bukkit', name: 'bukkit', version: '1.11.2-R0.1-SNAPSHOT'
+    compile group: 'org.bukkit', name: 'craftbukkit', version: '1.11.2-R0.1-SNAPSHOT'
+}
+
+processResources {
+    filter ReplaceTokens, tokens: [
+            "version"   : project.version
+    ]
+}
+
+blossom {
+    replaceToken '@VERSION@', project.version, 'src/main/java/com/mcardy/mystic/MystiCraft.java'
+}
