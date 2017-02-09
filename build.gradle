@@ -7,6 +7,7 @@ plugins {
 apply plugin: 'java'
 apply plugin: 'eclipse'
 
+
 eclipse {
     classpath {
         downloadJavadoc = true
@@ -21,7 +22,7 @@ description = 'A magic plugin for Bukkit'
 repositories {
     mavenLocal()
     mavenCentral()
-    maven { url "https://hub.spigotmc.org/nexus/content/repositories/snapshots/" }
+    maven { url "https://hub.spigotmc.org/nexus/content/repositories/public/" }
 }
 
 // In this section you declare the dependencies for your production and test code
