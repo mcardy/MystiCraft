@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import com.mcardy.mystic.MystiCraft;
+import com.mcardy.mystic.spell.attack.PunchSpell;
 
 public class SpellManager {
 
@@ -15,6 +16,7 @@ public class SpellManager {
 	
 	public void enable() {
 		register(new TestSpell());
+		register(new PunchSpell());
 	}
 	
 	/**
