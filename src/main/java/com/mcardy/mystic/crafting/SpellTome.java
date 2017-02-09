@@ -5,6 +5,7 @@ import java.util.Arrays;
 import org.apache.commons.lang.StringUtils;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
+import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.BookMeta;
 import org.bukkit.inventory.meta.BookMeta.Generation;
@@ -19,12 +20,15 @@ public class SpellTome {
 	private static final String DISPLAY_NAME = ChatColor.AQUA + "Spell Tome: ";
 	private static final Material MATERIAL = Material.WRITTEN_BOOK;
 	
-	public static ItemStack getSpellTome(String label) {
+	public static ItemStack getSpellTome(String label, Player crafter) {
 		ItemStack i = new ItemStack(MATERIAL);
 		Spell spell = MystiCraft.getSpellManager().getSpell(label);
 		BookMeta meta = (BookMeta)i.getItemMeta();
 		meta.setDisplayName(DISPLAY_NAME + StringUtils.capitalize(label));
-		meta.setAuthor("unknown");
+		if (crafter != null)
+			meta.setAuthor(crafter.getName());
+		else
+			meta.setAuthor("unknown");
 		meta.setGeneration(Generation.TATTERED);
 		meta.setLore(Arrays.asList(new String[]{ChatColor.GRAY + spell.getDescription(), ChatColor.GRAY + "Mana Cost: " + spell.getManaCost()}));
 		// TODO Add description

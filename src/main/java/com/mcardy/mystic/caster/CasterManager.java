@@ -11,6 +11,7 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
+import org.bukkit.scheduler.BukkitRunnable;
 
 import com.mcardy.mystic.MystiCraft;
 import com.mcardy.mystic.caster.knowledge.Knowledge;
@@ -62,6 +63,7 @@ public class CasterManager {
 	 */
 	public void enable() {
 		Bukkit.getPluginManager().registerEvents(new PlayerListener(), MystiCraft.getInstance());
+		new CasterUpdater().runTaskTimer(MystiCraft.getInstance(), 2, 2);
 	}
 	
 	/**
@@ -95,7 +97,6 @@ public class CasterManager {
 			PlayerCaster caster = new PlayerCaster(event.getPlayer().getUniqueId(), knowledge);
 			caster.connect();
 			casters.put(event.getPlayer().getUniqueId(), caster);
-			caster.getRegenerationRunnable().runTaskTimer(MystiCraft.getInstance(), 20, 20);
 		}
 		
 		@EventHandler
@@ -103,7 +104,25 @@ public class CasterManager {
 			Caster caster = casters.remove(event.getPlayer().getUniqueId());
 			caster.disconnect();
 			serialization.save(event.getPlayer().getUniqueId(), caster.getKnowledge());
-			caster.getRegenerationRunnable().cancel();
+		}
+		
+	}
+	
+	private class CasterUpdater extends BukkitRunnable {
+
+		private int ticks = 0;
+		
+		@Override
+		public void run() {
+			boolean updateMana = ticks == 0;
+			for (Caster caster : casters.values()) {
+				caster.update();
+				if (updateMana)
+					caster.regenerate();
+			}
+			ticks++;
+			if (ticks==10)
+				ticks = 0;
 		}
 		
 	}
