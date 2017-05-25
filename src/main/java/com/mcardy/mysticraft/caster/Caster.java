@@ -6,6 +6,7 @@ import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
 
 import com.mcardy.mysticraft.caster.knowledge.Knowledge;
+import com.mcardy.mysticraft.projectile.CustomProjectile;
 
 public interface Caster {
 
@@ -17,7 +18,7 @@ public interface Caster {
 	public Knowledge getKnowledge();
 	public Player getPlayer();
 	public UUID getUUID();
-	
+		
 	public void regenerate();
 	public void update();
 	

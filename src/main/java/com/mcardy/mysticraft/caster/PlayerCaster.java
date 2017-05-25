@@ -20,10 +20,16 @@ public class PlayerCaster implements Caster {
 	private UUID uuid;
 	private Map<String, Object> data;
 	
+	private LivingEntity livingEntityTarget;
+	private int livingEntityTargetTime;
+	
 	protected PlayerCaster(UUID uuid, Knowledge knowledge) {
 		this.knowledge = knowledge;
 		this.uuid = uuid;
 		this.data = new HashMap<String, Object>();
+		
+		livingEntityTarget = null;
+		livingEntityTargetTime = 0;
 	}
 	
 	@Override
@@ -56,7 +62,9 @@ public class PlayerCaster implements Caster {
 	
 	@Override
 	public LivingEntity getTargetLiving() {
-		int range = 10;
+		if (livingEntityTarget != null)
+			return livingEntityTarget;
+		int range = 100;
 		Player player = getPlayer();
 		BlockIterator iterator = new BlockIterator(player, range);
 		List<Entity> entities = player.getNearbyEntities(range, range, range);
@@ -69,7 +77,7 @@ public class PlayerCaster implements Caster {
 						for (int offY = -accuracy; offY < accuracy; offY++) {
 							for (int offZ = -accuracy; offZ < accuracy; offZ++) {
 								if (entity.getLocation().getBlock().getRelative(offX, offY, offZ).equals(block)) {
-									return (LivingEntity) entity;
+									return livingEntityTarget = (LivingEntity) entity;
 								}
 							}
 						}
@@ -77,12 +85,14 @@ public class PlayerCaster implements Caster {
 				}
 			}
 		}
-		return null;
+		return livingEntityTarget = null;
 	}
 	
 	@Override
 	public void update() {
-		
+		if (livingEntityTarget != null)
+			livingEntityTargetTime+=2;
+			if (livingEntityTargetTime == 10)
+				livingEntityTarget = null;
 	}
-
 }

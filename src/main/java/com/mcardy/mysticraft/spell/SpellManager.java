@@ -3,14 +3,17 @@ package com.mcardy.mysticraft.spell;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.bukkit.Bukkit;
 import org.bukkit.event.Listener;
 
 import com.google.gson.JsonObject;
 import com.mcardy.mysticraft.MystiCraft;
+import com.mcardy.mysticraft.projectile.CustomProjectileListener;
 import com.mcardy.mysticraft.spell.attack.ArrowSpell;
 import com.mcardy.mysticraft.spell.attack.ArrowStormSpell;
 import com.mcardy.mysticraft.spell.attack.BoltSpell;
 import com.mcardy.mysticraft.spell.attack.PunchSpell;
+import com.mcardy.mysticraft.spell.attack.TrackingArrowSpell;
 import com.mcardy.mysticraft.util.Configurable;
 import com.mcardy.mysticraft.util.JsonConfig;
 
@@ -27,6 +30,7 @@ public class SpellManager {
 	
 	public void enable() {
 		registerSpells();
+		Bukkit.getPluginManager().registerEvents(new CustomProjectileListener(), MystiCraft.getInstance());
 	}
 	
 	/**
@@ -65,6 +69,7 @@ public class SpellManager {
 		register(new ArrowStormSpell());
 		register(new BoltSpell());
 		register(new PunchSpell());
+		register(new TrackingArrowSpell());
 	}
 	
 }

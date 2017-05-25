@@ -103,6 +103,9 @@ public class CasterManager {
 	 * Disables CasterManager
 	 */
 	public void disable() {
+		for (Caster c : this.casters.values()) {
+			c.disconnect();
+		}
 	}
 
 	/**

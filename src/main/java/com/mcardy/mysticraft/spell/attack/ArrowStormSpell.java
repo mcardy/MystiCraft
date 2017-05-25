@@ -1,9 +1,9 @@
 package com.mcardy.mysticraft.spell.attack;
 
-import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.entity.Arrow;
 import org.bukkit.entity.Arrow.PickupStatus;
+import org.bukkit.scheduler.BukkitRunnable;
 
 import com.google.gson.JsonObject;
 import com.mcardy.mysticraft.MystiCraft;
@@ -18,13 +18,15 @@ public class ArrowStormSpell implements Spell, Configurable	 {
 
 	@Override
 	public void cast(Caster caster) {
-		for (int i = 0; i < count; i++) {
-			Bukkit.getScheduler().runTaskLater(MystiCraft.getInstance(), new Runnable() {
-				public void run() {
-					caster.getPlayer().launchProjectile(Arrow.class).setPickupStatus(PickupStatus.DISALLOWED);
-				}
-			}, i);
-		}
+		new BukkitRunnable() {
+			int current = 0;
+			public void run() {
+				caster.getPlayer().launchProjectile(Arrow.class).setPickupStatus(PickupStatus.DISALLOWED);
+				current++;
+				if (current == count)
+					this.cancel();
+			}
+		}.runTaskTimer(MystiCraft.getInstance(), 1, 1);
 	}
 
 	@Override
