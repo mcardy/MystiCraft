@@ -7,7 +7,6 @@ plugins {
 apply plugin: 'java'
 apply plugin: 'eclipse'
 
-
 eclipse {
     classpath {
         downloadJavadoc = true
@@ -37,5 +36,5 @@ processResources {
 }
 
 blossom {
-    replaceToken '@VERSION@', project.version, 'src/main/java/com/mcardy/mystic/MystiCraft.java'
+    replaceToken '@VERSION@', project.version, 'src/main/java/com/mcardy/mysticraft/MystiCraft.java'
 }
