@@ -51,6 +51,24 @@ public class CasterManager {
 		spell.cast(caster);
 		caster.getKnowledge().drainMana(spell.getManaCost());;
 	}
+	
+	/**
+	 * Casts a spell with the given name
+	 * @param casterID The id of the caster
+	 * @param label The name of the spell
+	 * @param src The source of the cast
+	 */
+	public void cast(Caster caster, String label, CastSource src) {
+		Spell spell = MystiCraft.getSpellManager().getSpell(label);
+		for (CastCondition condition : getConditions(spell)) {
+			if (!condition.allowed(caster)) {
+				caster.getPlayer().sendMessage(ChatColor.RED + condition.message());
+				return;
+			}
+		}
+		spell.cast(caster);
+		caster.getKnowledge().drainMana(spell.getManaCost());;
+	}
 
 	/**
 	 * Gets default conditions concatenated with the spell's specific conditions

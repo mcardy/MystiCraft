@@ -90,9 +90,11 @@ public class PlayerCaster implements Caster {
 	
 	@Override
 	public void update() {
-		if (livingEntityTarget != null)
+		if (livingEntityTarget != null) {
 			livingEntityTargetTime+=2;
-			if (livingEntityTargetTime == 10)
+			if (livingEntityTargetTime == 10) {
 				livingEntityTarget = null;
+			}
+		}
 	}
 }

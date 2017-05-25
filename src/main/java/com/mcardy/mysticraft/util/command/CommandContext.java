@@ -64,7 +64,7 @@ public class CommandContext {
 			break;
 		case OPTION:
 			for (String s : key.options()) {
-				if (s == text) {
+				if (s.equalsIgnoreCase(text)) {
 					value = s;
 				}
 			}

@@ -33,6 +33,9 @@ public class SpellManager {
 		Bukkit.getPluginManager().registerEvents(new CustomProjectileListener(), MystiCraft.getInstance());
 	}
 	
+	public void disable() {
+	}
+	
 	/**
 	 * Gets a spell with the given name
 	 * @param spell The spell to get
